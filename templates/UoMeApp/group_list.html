@@ -1,0 +1,11 @@
+{% include 'header.html' %}
+        {% for group in object_list %}
+            <h3>{{ group.name }}</h3>
+            <li><strong>Members</strong>:<br/> 
+            {% for member in group.members.all %}
+            	{{ member }}<br/>
+            {% endfor %}
+            </li>
+            <li><strong>Description</strong>: {{ group.description }}</li>
+        {% endfor %}
+{% include 'footer.html' %}

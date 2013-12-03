@@ -1,0 +1,17 @@
+{% include 'header.html' %}
+
+{% block content %}
+	
+	<a href="/groups/">Cancel</a>
+	
+	<form action="/create/group" method="post">{% csrf_token %}
+	<ul>
+	{{form.as_ul}}
+	</ul>
+	
+	<input type="submit" name="submit" value="Create Group">
+	</form>
+	
+{% endblock %}
+
+{% include 'footer.html' %}

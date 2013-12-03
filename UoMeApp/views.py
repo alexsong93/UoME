@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, EmptyPage
 from UoMeApp.models import UoMePost, Event
-from forms import UoMePostForm
+from forms import UoMePostForm, CreateGroupForm
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.http.response import HttpResponse
@@ -24,6 +24,21 @@ def getEvent(request, eventSlug, selected_page=1):
  
     # Display all the posts
     return render_to_response('events.html', { 'posts': returned_page.object_list, 'page': returned_page, 'event': event})
+
+def createGroup(request):
+    if request.POST:
+        form = CreateGroupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/groups/')
+    else:
+        form = CreateGroupForm()
+ 
+    args = {}
+    args.update(csrf(request))
+     
+    args['form'] = form
+    return render_to_response('create_Group.html',args)
 
 
 def create(request):

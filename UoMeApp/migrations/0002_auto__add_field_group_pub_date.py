@@ -8,15 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'UoMePost.receiver_name'
-        db.add_column(u'UoMeApp_uomepost', 'receiver_name',
-                      self.gf('django.db.models.fields.related.ForeignKey')(default='', related_name='receiver', to=orm['auth.User']),
+        # Adding field 'Group.pub_date'
+        db.add_column(u'UoMeApp_group', 'pub_date',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2013, 12, 3, 0, 0)),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'UoMePost.receiver_name'
-        db.delete_column(u'UoMeApp_uomepost', 'receiver_name_id')
+        # Deleting field 'Group.pub_date'
+        db.delete_column(u'UoMeApp_group', 'pub_date')
 
 
     models = {
@@ -27,6 +27,15 @@ class Migration(SchemaMigration):
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '40'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         },
+        u'UoMeApp.group': {
+            'Meta': {'object_name': 'Group'},
+            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'members': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.User']", 'symmetrical': 'False'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {}),
+            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '40'})
+        },
         u'UoMeApp.uomepost': {
             'Meta': {'ordering': "['pub_date']", 'object_name': 'UoMePost'},
             'comments': ('django.db.models.fields.TextField', [], {}),
@@ -34,6 +43,7 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'item_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'ower_name': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'ower'", 'to': u"orm['auth.User']"}),
+            'price': ('django.db.models.fields.DecimalField', [], {'max_digits': '6', 'decimal_places': '2'}),
             'pub_date': ('django.db.models.fields.DateTimeField', [], {}),
             'receiver_name': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'receiver'", 'to': u"orm['auth.User']"}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '40'})

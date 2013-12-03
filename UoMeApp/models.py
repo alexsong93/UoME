@@ -3,6 +3,26 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from datetime import datetime
 
+class Group(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    members = models.ManyToManyField(User);
+    pub_date = models.DateTimeField()
+    slug = models.SlugField(max_length=40, unique=True)
+    
+    def __unicode__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return "/groups/%s" % self.slug
+    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(self.name)
+        
+        self.pub_date = datetime.now()
+        super(Group, self).save(*args, **kwargs)
+
 # Create your models here.
 class Event(models.Model):
     title = models.CharField(max_length=200)
