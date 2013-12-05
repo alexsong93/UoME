@@ -6,6 +6,13 @@ from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.http.response import HttpResponse
 
+#load dashboard if user has logged in
+def createDashboard(request):
+    if request.user.is_authenticated():
+        return render_to_response('dashboard.html', {'first_name': request.user.first_name})
+    else:
+        return HttpResponseRedirect('/accounts/login/')
+ 
  
 def getEvent(request, eventSlug, selected_page=1):
     posts = UoMePost.objects.all().order_by('pub_date')
@@ -24,6 +31,7 @@ def getEvent(request, eventSlug, selected_page=1):
  
     # Display all the posts
     return render_to_response('events.html', { 'posts': returned_page.object_list, 'page': returned_page, 'event': event})
+
 
 def createGroup(request):
     if request.POST:

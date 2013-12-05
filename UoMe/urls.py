@@ -21,12 +21,14 @@ urlpatterns = patterns('',
     url(r'^accounts/register/?$', 'UoMe.views.register_user'),
     url(r'^accounts/register_success/?$', 'UoMe.views.register_success'),
     
+    # Dashboard
+    url(r'^dashboard/?$', 'UoMeApp.views.createDashboard'),
     # Events
     url(r'^events/?$', ListView.as_view(
         model=Event,
     )),
                        
-    # All posts
+    # All groups
     url(r'^groups/?$', ListView.as_view(
         model=Group,
     )),

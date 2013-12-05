@@ -13,11 +13,13 @@ def login(request):
 def auth_view(request):
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
-    user = auth.authenticate(username=username, password=password)
+    first_name = request.POST.get('first_name', '')
+    last_name = request.POST.get('last_name', '')
+    user = auth.authenticate(username=username, password=password,first_name=first_name,last_name=last_name)
     
     if user is not None:
         auth.login(request, user)
-        return HttpResponseRedirect('/accounts/loggedin')
+        return HttpResponseRedirect('/dashboard/')
     else:
         return HttpResponseRedirect('/accounts/invalid')
     

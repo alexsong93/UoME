@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from datetime import datetime
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    #phone_number = models.CharField(max_length=15, blank=True)
+
 class Group(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)

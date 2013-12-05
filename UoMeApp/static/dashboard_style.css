@@ -1,0 +1,74 @@
+body {
+	margin:0;
+	font-family:Arial;
+}
+
+#header {
+	height:50px;
+	width:;
+	background-color: lightgray;
+	border-bottom:3px solid gray;	
+}
+
+	#header a {
+		text-decoration:none;
+		color:black;
+	}
+
+	#header #logo {
+		float:left;
+	}
+
+		#header #logo h2 {
+			margin:10px 10px;
+			display: inline-block;
+			font-size: 27px;
+		}
+
+	#header #login_register {
+		float:right;
+	}
+
+		#header #login_register p {
+			margin:15px 10px;
+			display: inline-block;
+		}
+
+.container {
+	margin:0 auto;
+	width:1100px;
+}
+
+	#sidebar {
+		margin-top:70px;
+		float:left;
+		width:225px;
+	}
+
+		#sidebar #menu {
+			padding:0;
+		}
+
+			#sidebar #menu ul {
+				width:200px;
+			}
+
+			#sidebar #menu li {
+				padding:10px;
+				width:200px;
+				list-style: none;
+				border:2px solid black;
+				background-color: lightgreen;
+			}
+
+			#sidebar #menu a {
+				text-decoration:none;
+				color:black;
+		}
+
+	#maincontent {
+		float:right;
+		width:830px;
+		padding-left:20px;
+		border-left:1px solid black;
+	}

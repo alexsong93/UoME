@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<title>UoMe: Dashboard</title>
+        <link rel="stylesheet" type="text/css" href="/static/dashboard_style.css" />
+	</head>
+	<body>
+		<div id="header">
+			<div class="container">
+				<div id="logo"><h2><a href="/dashboard/">UoMe</a></h2></div>
+				<div id="login_register">
+					<p><a href="/accounts/login/">login</a></p>
+					<p><a href="/accounts/register/">register</a></p>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div id="sidebar">
+				<ul id="menu">
+				<a href="#"><li>Profile</li></a>
+				<a href="/groups/"><li>My Groups</li></a>
+				<a href=/create/group/><li>Create a group</li></a>
+				<a href="#"><li>Join a group</li></a>
+				<a href="#"><li>Send a message</li></a>
+				<a href="/admin/"><li>Admin</li></a>
+				</ul>
+			</div>
+			<div id="maincontent">
+				<h1>Hi {{first_name}}!</h1>
+				<h3>Recent activity</h3>
+				<p> blah <br/> blha <br/> bhla</p>
+				<h3>Notifications</h3>
+				<p> blah <br/> blha <br/> bhla</p>
+			</div>
+		</div>
+	</body>
+</html>
