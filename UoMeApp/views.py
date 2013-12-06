@@ -1,17 +1,24 @@
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, EmptyPage
-from UoMeApp.models import UoMePost, Event
+from UoMeApp.models import UoMePost, Event, Group
 from forms import UoMePostForm, CreateGroupForm
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.http.response import HttpResponse
+from django.views.generic import ListView
 
-#load dashboard if user has logged in
+# load homepage
+def homepage(request):
+    c = {}
+    c.update(csrf(request))
+    return render_to_response('index.html',c)
+
+# load dashboard if user has logged in
 def createDashboard(request):
     if request.user.is_authenticated():
         return render_to_response('dashboard.html', {'first_name': request.user.first_name})
     else:
-        return HttpResponseRedirect('/accounts/login/')
+        return HttpResponseRedirect('/')
  
  
 def getEvent(request, eventSlug, selected_page=1):
@@ -48,6 +55,11 @@ def createGroup(request):
     args['form'] = form
     return render_to_response('create_Group.html',args)
 
+
+class myGroupsView(ListView):
+    def dispatch(self, request, *args, **kwargs):
+        self.queryset = Group.objects.filter(members=request.user)
+        return super(myGroupsView, self).dispatch(request, *args, **kwargs)
 
 def create(request):
     if request.POST:

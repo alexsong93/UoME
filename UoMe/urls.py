@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import ListView
 from UoMeApp.models import Event, UoMePost, Group
+from UoMeApp.views import myGroupsView
 
 from django.contrib import admin
 admin.autodiscover()
@@ -12,14 +13,15 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     
+    #homepage
+    url(r'^$','UoMeApp.views.homepage'),
+    
     # user auth urls
     url(r'^accounts/login/?$', 'UoMe.views.login'),
     url(r'^accounts/auth/?$', 'UoMe.views.auth_view'),
     url(r'^accounts/logout/?$', 'UoMe.views.logout'),
-    url(r'^accounts/loggedin/?$', 'UoMe.views.loggedin'),
     url(r'^accounts/invalid/?$', 'UoMe.views.invalid_login'),
     url(r'^accounts/register/?$', 'UoMe.views.register_user'),
-    url(r'^accounts/register_success/?$', 'UoMe.views.register_success'),
     
     # Dashboard
     url(r'^dashboard/?$', 'UoMeApp.views.createDashboard'),
@@ -29,7 +31,7 @@ urlpatterns = patterns('',
     )),
                        
     # All groups
-    url(r'^groups/?$', ListView.as_view(
+    url(r'^groups/?$', myGroupsView.as_view(
         model=Group,
     )),
                        

@@ -1,0 +1,43 @@
+<html>
+	<head>
+		{% block head %}
+		<title>UoMe: Dashboard</title>
+        <link rel="stylesheet" type="text/css" href="/static/dashboard_style.css" />
+        {% endblock %}
+	</head>
+	<body>
+		<div id="header">
+			<div class="container">
+				<div id="logo"><h2><a href="/dashboard/">UoMe</a></h2></div>
+				<div id="login_register">
+					<p><a href="/accounts/logout/">logout</a></p>
+					<p><a href="#">help</a></p>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div id="sidebar">
+				{% block sidebar %}
+				<ul id="menu">
+				<a href="#"><li>Profile</li></a>
+				<a href="/groups/"><li>My Groups</li></a>
+				<a href=/create/group/><li>Create a group</li></a>
+				<a href="#"><li>Join a group</li></a>
+				<a href="#"><li>Send a message</li></a>
+				<a href="/admin/"><li>Admin</li></a>
+				</ul>
+				{% endblock %}
+			</div>
+			<div id="maincontent">
+				{% block maincontent %}
+				
+				{% endblock %}
+			</div>
+		</div>
+		<div id="footer">
+			<div class="container">
+			<p>(c) copyright Alex Song 2013</p>
+			</div>
+		</div>
+	</body>
+</html>
