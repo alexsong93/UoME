@@ -3,13 +3,42 @@
 {% block maincontent %}
 
 	{% for group in object_list %}
-        <h3>{{ group.name }}</h3>
-        <li><strong>Members</strong>:<br/> 
+        <h2>{{ group.name }}</h2>
+        <li><strong>Members</strong>: 
         {% for member in group.members.all %}
-        	{{ member }}<br/>
+        	{{ member.first_name }} {{ member.last_name }}, 
         {% endfor %}
         </li>
         <li><strong>Description</strong>: {{ group.description }}</li>
+        <li><strong>UoMe's</strong>:
+        	<table border="1">
+        		<tr>
+        			<td><strong>Date</strong>:</td>
+        			<td><strong>Ower</strong>:</td>
+        			<td><strong>Receiver</strong>:</td> 
+        			<td><strong>Event</strong>:</td>
+        			<td><strong>Item</strong>:</td>
+        			<td><strong>Price</strong>:</td>
+        			<td><strong>Comments</strong>:</td>
+        		</tr>
+        		{% for uomepost in group.uomeposts.all %}
+        		<tr>
+		            <td>{{ uomepost.pub_date }}</td>
+		            <td>{{ uomepost.ower_name }}</td>
+		            <td>{{ uomepost.receiver_name }}</td>
+		            <td>{{ uomepost.event }}</td>
+		            <td>{{ uomepost.item_name }}</td>
+		            <td>${{ uomepost.price }}</td>
+		            <td>{{ uomepost.comments }}</td>
+		        </tr>
+        		{% endfor %}
+        	</table>
+        	<br/>
+        </li>
+        <form action="/create/" method="GET">
+        	<button>Add a UoMe</button>
+        </form>
+        <br/>
     {% endfor %}
 	
 {% endblock %}

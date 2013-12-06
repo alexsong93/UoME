@@ -7,10 +7,23 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     #phone_number = models.CharField(max_length=15, blank=True)
 
+
+class Event(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=40, unique=True)
+    description = models.TextField()
+    
+    def __unicode__(self):
+        return self.title
+    
+    def get_absolute_url(self):
+        return "/events/%s" % self.slug
+
+ 
 class Group(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    members = models.ManyToManyField(User);
+    members = models.ManyToManyField(User)
     pub_date = models.DateTimeField()
     slug = models.SlugField(max_length=40, unique=True)
     
@@ -26,20 +39,11 @@ class Group(models.Model):
         
         self.pub_date = datetime.now()
         super(Group, self).save(*args, **kwargs)
-
-# Create your models here.
-class Event(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=40, unique=True)
-    description = models.TextField()
-    
-    def __unicode__(self):
-        return self.title
-    
-    def get_absolute_url(self):
-        return "/events/%s" % self.slug
+  
+   
     
 class UoMePost(models.Model):
+    group = models.ForeignKey(Group, related_name='uomeposts');
     ower_name = models.ForeignKey(User, related_name='ower')
     receiver_name = models.ForeignKey(User, related_name='receiver')
     event = models.ForeignKey(Event)
@@ -53,7 +57,7 @@ class UoMePost(models.Model):
         ordering = ["pub_date"]
       
     def __unicode__(self):
-        return "%s, %s" % (self.pub_date, self.item_name)
+        return "%s, %s, %s" % (self.ower_name, self.receiver_name, self.item_name)
   
     def get_absolute_url(self):
         return "/%s/%s/" % (self.event, self.slug)
@@ -65,6 +69,5 @@ class UoMePost(models.Model):
         self.pub_date = datetime.now()
         super(UoMePost, self).save(*args, **kwargs)
     
-    
-    
+
     

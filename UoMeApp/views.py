@@ -20,7 +20,10 @@ def createDashboard(request):
     else:
         return HttpResponseRedirect('/')
  
- 
+
+def profile(request):
+    return render_to_response('profile.html',{'user': request.user})
+
 def getEvent(request, eventSlug, selected_page=1):
     posts = UoMePost.objects.all().order_by('pub_date')
     event_posts = []
@@ -57,6 +60,7 @@ def createGroup(request):
 
 
 class myGroupsView(ListView):
+    
     def dispatch(self, request, *args, **kwargs):
         self.queryset = Group.objects.filter(members=request.user)
         return super(myGroupsView, self).dispatch(request, *args, **kwargs)
@@ -66,7 +70,7 @@ def create(request):
         form = UoMePostForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/UoMePosts/')
+            return HttpResponseRedirect('/groups/')
     else:
         form = UoMePostForm()
  

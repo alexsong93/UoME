@@ -29,6 +29,10 @@ class EventAdmin(admin.ModelAdmin):
 class UoMePostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("item_name",)}
 
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.group = request.group
+        obj.save()
 
 admin.site.register(models.Group, GroupAdmin)
 admin.site.register(models.Event, EventAdmin)         

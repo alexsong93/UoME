@@ -25,6 +25,10 @@ urlpatterns = patterns('',
     
     # Dashboard
     url(r'^dashboard/?$', 'UoMeApp.views.createDashboard'),
+           
+    # Profile
+    url(r'^profile/?$', 'UoMeApp.views.profile'),
+    
     # Events
     url(r'^events/?$', ListView.as_view(
         model=Event,
@@ -34,7 +38,8 @@ urlpatterns = patterns('',
     url(r'^groups/?$', myGroupsView.as_view(
         model=Group,
     )),
-                       
+
+    
     # All posts
     url(r'^UoMePosts/?$', ListView.as_view(
         model=UoMePost,

@@ -5,7 +5,7 @@ class UoMePostForm(forms.ModelForm):
     
     class Meta:
         model = UoMePost
-        fields = ('ower_name', 'receiver_name', 'event', 'item_name', 'price', 'comments')
+        fields = ('group','ower_name', 'receiver_name', 'event', 'item_name', 'price', 'comments')
         
 class CreateGroupForm(forms.ModelForm):
     
