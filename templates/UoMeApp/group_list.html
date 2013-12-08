@@ -2,7 +2,10 @@
 
 {% block maincontent %}
 
+	<h1>My Groups</h1>	
+	
 	{% for group in object_list %}
+	
         <h2>{{ group.name }}</h2>
         <li><strong>Members</strong>: 
         {% for member in group.members.all %}
@@ -23,9 +26,9 @@
         		</tr>
         		{% for uomepost in group.uomeposts.all %}
         		<tr>
-		            <td>{{ uomepost.pub_date }}</td>
-		            <td>{{ uomepost.ower_name }}</td>
-		            <td>{{ uomepost.receiver_name }}</td>
+		            <td>{{ uomepost.pub_date.date }}</td>
+		            <td>{{ uomepost.ower_name.first_name }} {{ uomepost.ower_name.last_name }}</td>
+		            <td>{{ uomepost.receiver_name.first_name }} {{ uomepost.receiver_name.last_name }}</td>
 		            <td>{{ uomepost.event }}</td>
 		            <td>{{ uomepost.item_name }}</td>
 		            <td>${{ uomepost.price }}</td>
@@ -35,10 +38,14 @@
         	</table>
         	<br/>
         </li>
-        <form action="/create/" method="GET">
+        <form action="/create/{{ group.id }}" method="GET">
         	<button>Add a UoMe</button>
         </form>
         <br/>
+        
+        {% empty %}
+        	<p>You are not part of a group yet. Join an existing group or create your own!</p>
+        
     {% endfor %}
 	
 {% endblock %}

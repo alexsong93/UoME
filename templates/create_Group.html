@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block maincontent %}
-
+	
+	<h2>Create a group</h2>
+	
 	<form action="/create/group" method="post">{% csrf_token %}
 	<ul>
 	{{form.as_ul}}

@@ -4,7 +4,7 @@
 	
 	<a href="/UoMePosts/">Cancel</a>
 	
-	<form action="/create/" method="post">{% csrf_token %}
+	<form action="/create/{{ id }}" method="post">{% csrf_token %}
 	<ul>
 	{{form.as_ul}}
 	</ul>
