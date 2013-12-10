@@ -8,16 +8,16 @@ class UserProfile(models.Model):
     #phone_number = models.CharField(max_length=15, blank=True)
 
 
-class Event(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=40, unique=True)
-    description = models.TextField()
-    
-    def __unicode__(self):
-        return self.title
-    
-    def get_absolute_url(self):
-        return "/events/%s" % self.slug
+# class Event(models.Model):
+#     title = models.CharField(max_length=200)
+#     slug = models.SlugField(max_length=40, unique=True)
+#     description = models.TextField()
+#     
+#     def __unicode__(self):
+#         return self.title
+#     
+#     def get_absolute_url(self):
+#         return "/events/%s" % self.slug
 
  
 class Group(models.Model):
@@ -46,7 +46,7 @@ class UoMePost(models.Model):
     group = models.ForeignKey(Group, related_name='uomeposts');
     ower_name = models.ForeignKey(User, related_name='ower')
     receiver_name = models.ForeignKey(User, related_name='receiver')
-    event = models.ForeignKey(Event)
+    event = models.CharField(max_length=200, blank=True)
     item_name = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     comments = models.TextField()
@@ -69,5 +69,27 @@ class UoMePost(models.Model):
         self.pub_date = datetime.now()
         super(UoMePost, self).save(*args, **kwargs)
     
-
+    
+class SharedUoMePost(models.Model):
+    group = models.ForeignKey(Group, related_name='shared_uomeposts');
+    event = models.CharField(max_length=200, blank=True)
+    item_name = models.CharField(max_length=200)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    members = models.ManyToManyField(User)
+    comments = models.TextField()
+    pub_date = models.DateTimeField()
+    slug = models.SlugField(max_length=40, unique=True)
+    
+    class Meta:
+        ordering = ["pub_date"]
+        
+    def __unicode__(self):
+        return 'shared' + self.item_name
+    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(self.item_name)
+        
+        self.pub_date = datetime.now()
+        super(UoMePost, self).save(*args, **kwargs)
     

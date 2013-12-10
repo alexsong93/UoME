@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import ListView
-from UoMeApp.models import Event, UoMePost, Group
+from UoMeApp.models import UoMePost, Group
 from UoMeApp.views import myGroupsView
 
 from django.contrib import admin
@@ -16,6 +16,9 @@ urlpatterns = patterns('',
     #homepage
     url(r'^$','UoMeApp.views.homepage'),
     
+    #facebook
+    url(r'^$', include('social_auth.urls')),
+    
     # user auth urls
     url(r'^accounts/login/?$', 'UoMe.views.login'),
     url(r'^accounts/auth/?$', 'UoMe.views.auth_view'),
@@ -28,11 +31,6 @@ urlpatterns = patterns('',
            
     # Profile
     url(r'^profile/?$', 'UoMeApp.views.profile'),
-    
-    # Events
-    url(r'^events/?$', ListView.as_view(
-        model=Event,
-    )),
                        
     # All groups
     url(r'^groups/?$', myGroupsView.as_view(
@@ -50,6 +48,8 @@ urlpatterns = patterns('',
                        
     # Add a UoMePost
     url(r'^create/(?P<group_id>\d)/?$', 'UoMeApp.views.create'),
+    # Edit a UoMePost
+    url(r'^edit/(?P<group_id>\d)/(?P<uomepost_id>\d)?$', 'UoMeApp.view.editUoMePost'),
 
     # flatpages
     url(r'', include('django.contrib.flatpages.urls')),

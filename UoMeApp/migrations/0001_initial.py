@@ -8,11 +8,19 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'UserProfile'
+        db.create_table(u'UoMeApp_userprofile', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
+        ))
+        db.send_create_signal(u'UoMeApp', ['UserProfile'])
+
         # Adding model 'Group'
         db.create_table(u'UoMeApp_group', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('pub_date', self.gf('django.db.models.fields.DateTimeField')()),
             ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=40)),
         ))
         db.send_create_signal(u'UoMeApp', ['Group'])
@@ -26,21 +34,12 @@ class Migration(SchemaMigration):
         ))
         db.create_unique(m2m_table_name, ['group_id', 'user_id'])
 
-        # Adding model 'Event'
-        db.create_table(u'UoMeApp_event', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=40)),
-            ('description', self.gf('django.db.models.fields.TextField')()),
-        ))
-        db.send_create_signal(u'UoMeApp', ['Event'])
-
         # Adding model 'UoMePost'
         db.create_table(u'UoMeApp_uomepost', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('group', self.gf('django.db.models.fields.related.ForeignKey')(related_name='uomeposts', to=orm['UoMeApp.Group'])),
             ('ower_name', self.gf('django.db.models.fields.related.ForeignKey')(related_name='ower', to=orm['auth.User'])),
             ('receiver_name', self.gf('django.db.models.fields.related.ForeignKey')(related_name='receiver', to=orm['auth.User'])),
-            ('event', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['UoMeApp.Event'])),
             ('item_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('price', self.gf('django.db.models.fields.DecimalField')(max_digits=6, decimal_places=2)),
             ('comments', self.gf('django.db.models.fields.TextField')()),
@@ -51,39 +50,33 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
+        # Deleting model 'UserProfile'
+        db.delete_table(u'UoMeApp_userprofile')
+
         # Deleting model 'Group'
         db.delete_table(u'UoMeApp_group')
 
         # Removing M2M table for field members on 'Group'
         db.delete_table(db.shorten_name(u'UoMeApp_group_members'))
 
-        # Deleting model 'Event'
-        db.delete_table(u'UoMeApp_event')
-
         # Deleting model 'UoMePost'
         db.delete_table(u'UoMeApp_uomepost')
 
 
     models = {
-        u'UoMeApp.event': {
-            'Meta': {'object_name': 'Event'},
-            'description': ('django.db.models.fields.TextField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '40'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '200'})
-        },
         u'UoMeApp.group': {
             'Meta': {'object_name': 'Group'},
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'members': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.User']", 'symmetrical': 'False'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '40'})
         },
         u'UoMeApp.uomepost': {
             'Meta': {'ordering': "['pub_date']", 'object_name': 'UoMePost'},
             'comments': ('django.db.models.fields.TextField', [], {}),
-            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['UoMeApp.Event']"}),
+            'group': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'uomeposts'", 'to': u"orm['UoMeApp.Group']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'item_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'ower_name': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'ower'", 'to': u"orm['auth.User']"}),
@@ -91,6 +84,11 @@ class Migration(SchemaMigration):
             'pub_date': ('django.db.models.fields.DateTimeField', [], {}),
             'receiver_name': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'receiver'", 'to': u"orm['auth.User']"}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '40'})
+        },
+        u'UoMeApp.userprofile': {
+            'Meta': {'object_name': 'UserProfile'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
         },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},

@@ -1,5 +1,10 @@
 body {
+	font-family: Arial;
 	margin:0;
+}
+
+h2 {
+	color:#333333;
 }
 
 #index_container {
@@ -14,12 +19,18 @@ body {
 
 #index_container p {
 	margin:0 auto;
-	font-size: 21px;
+	font-size: 15px;
 }
 
 #index_login_register {
-	margin-top:20px;
+	border-radius: 10px;
+	background-color: lightgrey;
+	margin:20px auto;
+	padding-top:20px;
+	padding-bottom: 30px;
 	text-align: center;
+	width:400px;
+	box-shadow:5px 5px 10px #666666;
 }
 
 .button {
@@ -27,8 +38,57 @@ body {
 	margin:10px 10px;
 }
 
-#login, #register {
-	width:100px;
-	height:40px;
-	font-size: 20px;
+
+input {
+	display:block;
+	border-radius:5px;
+	font-size:15px;
+	height:25px;
+	width:200px;
+}
+
+#index_login_register input {
+	margin:20 auto;
+}
+
+#signin, #register{
+	width:80px;
+	height:30px;
+	font-size: 15px;
+	font-weight: bold;
+	color:#333333;
+	border-radius: 5px;
+	background-color:#9BCD9B;
+}
+
+#register {
+	margin-top:20px;
+	margin-left:30px;
+}
+
+a {
+	text-decoration: none;
+}
+
+th {
+}
+
+#registration {
+	padding:30px;
+	padding-top:10px;
+	width:90%;
+	background-color:lightgray;
+	border-radius: 10px;
+	box-shadow:5px 5px 10px #666666;
+}
+
+#registration a {
+	padding-top:10px;
+	padding-left:35px;
+	display:inline-block;
+}
+
+#registration h2 {
+	padding:10px 20px 0 33px;
+	
 }

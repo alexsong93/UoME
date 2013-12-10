@@ -2,27 +2,19 @@
 
 {% block main %}
 	
-		<p>description description description description description description</p>
-		<p>description description description description description description</p>
-		<p>description description description description description description</p>
 		<div id="index_login_register">
-			<h2>Log in</h2>
+			<h2>Sign in</h2>
 			{% if form.errors %}
 				<p class="error"> Sorry, that's not a valid username or password</p>
 			{% endif %}
 			<form action="/accounts/auth/" method="post">{% csrf_token %}
-				<label for="username">User name:</label>
-				<input type="text" name="username" value="" id="username">
-				<label for="password">Password:</label>
-				<input type="password" name="password" value="" id="password">
-				
-				<input type="submit" value="login"/>
+				<input type="text" name="username" value="" id="username" placeholder="Username">
+				<input type="password" name="password" value="" id="password" placeholder="Password">
+				<input type="submit" value="sign in" id="signin"/>
 			</form>
 			
-			<h2>Register</h2>
-			<form action="/accounts/register/" method="GET">
-				<div class="button"><button id="register">Register</button></div>
-			</form>
+			<p>Don't have an account? <a href="/accounts/register">Register</a></p>
+		</div>
 	
 {% endblock %}
 

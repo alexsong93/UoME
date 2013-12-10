@@ -2,12 +2,12 @@
 
 {% block maincontent %}
 	
-	<a href="/UoMePosts/">Cancel</a>
+	<h2>Add a UoMe</h2>
 	
 	<form action="/create/{{ id }}" method="post">{% csrf_token %}
-	<ul>
-	{{form.as_ul}}
-	</ul>
+	<table>
+		{{form.as_table}}
+	</table>
 	
 	<input type="submit" name="submit" value="Create UoMePost">
 	</form>

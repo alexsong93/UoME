@@ -8,27 +8,18 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'UserProfile'
-        db.create_table(u'UoMeApp_userprofile', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-        ))
-        db.send_create_signal(u'UoMeApp', ['UserProfile'])
+        # Adding field 'UoMePost.event'
+        db.add_column(u'UoMeApp_uomepost', 'event',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=200),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'UserProfile'
-        db.delete_table(u'UoMeApp_userprofile')
+        # Deleting field 'UoMePost.event'
+        db.delete_column(u'UoMeApp_uomepost', 'event')
 
 
     models = {
-        u'UoMeApp.event': {
-            'Meta': {'object_name': 'Event'},
-            'description': ('django.db.models.fields.TextField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '40'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '200'})
-        },
         u'UoMeApp.group': {
             'Meta': {'object_name': 'Group'},
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
@@ -41,7 +32,8 @@ class Migration(SchemaMigration):
         u'UoMeApp.uomepost': {
             'Meta': {'ordering': "['pub_date']", 'object_name': 'UoMePost'},
             'comments': ('django.db.models.fields.TextField', [], {}),
-            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['UoMeApp.Event']"}),
+            'event': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'group': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'uomeposts'", 'to': u"orm['UoMeApp.Group']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'item_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'ower_name': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'ower'", 'to': u"orm['auth.User']"}),

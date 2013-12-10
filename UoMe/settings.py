@@ -46,7 +46,31 @@ INSTALLED_APPS = (
     'UoMeApp',
     'south',
     'django.contrib.flatpages',
+    'social_auth',
 )
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.facebook.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'social_auth.context_processors.social_auth_by_type_backends',
+    'django.contrib.auth.context_processors.auth',
+    
+)
+
+SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
+SOCIAL_AUTH_UID_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 16
+SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 16
+
+SOCIAL_AUTH_ENABLED_BACKENDS = ('facebook')
+
+FACEBOOK_APP_ID='525483890899030'
+FACEBOOK_API_SECRET='3a61a935fefaa5c1039c033e87a96092'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

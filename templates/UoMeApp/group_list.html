@@ -13,7 +13,7 @@
         {% endfor %}
         </li>
         <li><strong>Description</strong>: {{ group.description }}</li>
-        <li><strong>UoMe's</strong>:
+        <li><strong>Individual UoMe's</strong>:
         	<table border="1">
         		<tr>
         			<td><strong>Date</strong>:</td>
@@ -23,16 +23,18 @@
         			<td><strong>Item</strong>:</td>
         			<td><strong>Price</strong>:</td>
         			<td><strong>Comments</strong>:</td>
+        			<td><strong>Edit</strong></td>
         		</tr>
         		{% for uomepost in group.uomeposts.all %}
         		<tr>
 		            <td>{{ uomepost.pub_date.date }}</td>
 		            <td>{{ uomepost.ower_name.first_name }} {{ uomepost.ower_name.last_name }}</td>
 		            <td>{{ uomepost.receiver_name.first_name }} {{ uomepost.receiver_name.last_name }}</td>
-		            <td>{{ uomepost.event }}</td>
+		            <td> {% if uomepost.event %} {{ uomepost.event }} {% else %} N/A {% endif %} </td>
 		            <td>{{ uomepost.item_name }}</td>
 		            <td>${{ uomepost.price }}</td>
 		            <td>{{ uomepost.comments }}</td>
+		            <!--<td><a href="/edit/{ uomepost.group }/{ uomepost.id }">Edit</a></td>-->
 		        </tr>
         		{% endfor %}
         	</table>
@@ -41,7 +43,9 @@
         <form action="/create/{{ group.id }}" method="GET">
         	<button>Add a UoMe</button>
         </form>
-        <br/>
+        <li>
+        	<strong>Shared UoMe's</strong>:
+        </li>
         
         {% empty %}
         	<p>You are not part of a group yet. Join an existing group or create your own!</p>
