@@ -49,7 +49,7 @@ urlpatterns = patterns('',
     # Add a UoMePost
     url(r'^create/(?P<group_id>\d)/?$', 'UoMeApp.views.create'),
     # Edit a UoMePost
-    url(r'^edit/(?P<group_id>\d)/(?P<uomepost_id>\d)?$', 'UoMeApp.view.editUoMePost'),
+    url(r'^edit/(?P<group_id>\d)/(?P<uomepost_id>\d)?$', 'UoMeApp.views.editUoMePost'),
 
     # flatpages
     url(r'', include('django.contrib.flatpages.urls')),

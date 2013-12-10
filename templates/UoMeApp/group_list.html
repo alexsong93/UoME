@@ -34,7 +34,8 @@
 		            <td>{{ uomepost.item_name }}</td>
 		            <td>${{ uomepost.price }}</td>
 		            <td>{{ uomepost.comments }}</td>
-		            <!--<td><a href="/edit/{ uomepost.group }/{ uomepost.id }">Edit</a></td>-->
+		            <td><a href="/edit/{{ group.id }}/{{ uomepost.id }}">Edit</a></td>
+		            <td><a href="#">Paid back</a></td>
 		        </tr>
         		{% endfor %}
         	</table>

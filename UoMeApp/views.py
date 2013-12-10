@@ -76,7 +76,7 @@ def create(request, group_id):
  
     args = {}
     args.update(csrf(request))
-    args['id'] = group_id
+    args['group_id'] = group_id
     args['form'] = form
     return render_to_response('create_UoMePost.html',args)
 
@@ -84,17 +84,20 @@ def editUoMePost(request, group_id, uomepost_id):
     if request.POST:
         form = UoMePostForm(request.POST, user=request.user, group_id=group_id)
         if form.is_valid():
+            uomepost = UoMePost.objects.get(id=uomepost_id) 
+            form = UoMePostForm(request.POST, instance=uomepost, user=request.user, group_id=group_id)
             form.save()
             return HttpResponseRedirect('/groups/')
-        else:
-            uomepost = UoMePost.objects.get(id=group_id) 
-            form = UoMePostForm(user=request.user, group_id=group_id)
+    else:
+        uomepost = UoMePost.objects.get(id=uomepost_id) 
+        form = UoMePostForm(instance=uomepost, user=request.user, group_id=group_id)
  
     args = {}
     args.update(csrf(request))
-    args['id'] = group_id
+    args['group_id'] = group_id
+    args['uomepost_id'] = uomepost_id
     args['form'] = form
-    return render_to_response('create_UoMePost.html',args)
+    return render_to_response('edit_UoMePost.html',args)
         
         
         

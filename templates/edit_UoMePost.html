@@ -4,7 +4,7 @@
 	
 	<h2>Add a UoMe</h2>
 	
-	<form action="/create/{{ group_id }}" method="post">{% csrf_token %}
+	<form action="/edit/{{ group_id }}/{{ uomepost_id }}" method="post">{% csrf_token %}
 	<table>
 		{{form.as_table}}
 	</table>
