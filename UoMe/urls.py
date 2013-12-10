@@ -47,7 +47,7 @@ urlpatterns = patterns('',
     url(r'^create/group/?$', 'UoMeApp.views.createGroup'),
                        
     # Add a UoMePost
-    url(r'^create/(?P<group_id>\d)/?$', 'UoMeApp.views.create'),
+    url(r'^addUoMe/(?P<group_id>\d)/?$', 'UoMeApp.views.addUoMePost'),
     # Edit a UoMePost
     url(r'^edit/(?P<group_id>\d)/(?P<uomepost_id>\d)/?$', 'UoMeApp.views.editUoMePost'),
     # notifications

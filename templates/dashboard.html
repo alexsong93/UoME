@@ -12,9 +12,9 @@
 	<h2>Notifications</h2>
 	{% for n in user.notifications.all %}
 		{% if n.alertNotif %}
-			<h3 id="alert">{{ n.title }}</h3>
+			<h3 id="alert">{{n.pub_date}} | {{ n.title }}</h3>
 		{% else %}
-			<h3>{{ n.title }}</h3>
+			<h3>{{n.pub_date}} | {{ n.title }}</h3>
 		{% endif %}
 		<p>{{ n.message }}</p>
 		{% empty %}

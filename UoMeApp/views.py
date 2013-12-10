@@ -65,7 +65,7 @@ class myGroupsView(ListView):
         self.queryset = Group.objects.filter(members=request.user)
         return super(myGroupsView, self).dispatch(request, *args, **kwargs)
 
-def create(request, group_id):
+def addUoMePost(request, group_id):
     if request.POST:
         form = UoMePostForm(request.POST, user=request.user, group_id=group_id)
         if form.is_valid():
