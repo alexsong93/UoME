@@ -1,7 +1,8 @@
 <html>
 	<head>
 		{% block head %}
-		<title>UoMe: Dashboard</title>
+			{% block title %}
+			{% endblock %}
         <link rel="stylesheet" type="text/css" href="/static/dashboard_style.css" />
         {% endblock %}
 	</head>
@@ -15,17 +16,17 @@
 				</div>
 			</div>
 		</div>
-		<div class="container">
+		<div class="container" id="mainbody">
 			<div id="sidebar">
 				{% block sidebar %}
 				<ul id="menu">
-				<a href="/dashboard/"><li>Dashboard</li></a>
-				<a href="/profile/"><li>Profile</li></a>
-				<a href="/groups/"><li>My Groups</li></a>
-				<a href=/create/group/><li>Create a group</li></a>
-				<a href="#"><li>Join a group</li></a>
-				<a href="#"><li>Send a message</li></a>
-				<a href="/admin/"><li>Admin</li></a>
+					<a href="/dashboard/"><li>Dashboard</li></a>
+					<a href="/profile/"><li>Profile</li></a>
+					<a href="/groups/"><li>My Groups</li></a>
+					<a href=/create/group/><li>Create a group</li></a>
+					<a href="#"><li>Join a group</li></a>
+					<a href="#"><li>Send a message</li></a>
+					<a href="/admin/"><li>Admin</li></a>
 				</ul>
 				{% endblock %}
 			</div>

@@ -57,7 +57,7 @@ AUTHENTICATION_BACKENDS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'social_auth.context_processors.social_auth_by_type_backends',
     'django.contrib.auth.context_processors.auth',
-    
+    'django.core.context_processors.request',
 )
 
 SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'

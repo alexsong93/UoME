@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+    <title>UoMe: My Groups</title>
+{% endblock %}
+
 {% block maincontent %}
 
 	<h1>My Groups</h1>	
@@ -35,7 +39,16 @@
 		            <td>${{ uomepost.price }}</td>
 		            <td>{{ uomepost.comments }}</td>
 		            <td><a href="/edit/{{ group.id }}/{{ uomepost.id }}">Edit</a></td>
-		            <td><a href="#">Paid back</a></td>
+		            {% if uomepost.paid and not uomepost.confirmed %}
+		            	{% if request.user == uomepost.ower_name %}
+		            		<td>Awaiting Confirmation</td>
+		            	{% else %}
+		            		<td><a href="/notify/confirm/{{ uomepost.id }}">confirm</a><br>
+		            		<a href="/notify/reject/{{ uomepost.id }}">reject</a></td>
+		            	{% endif %}
+					{% else %}
+						<td><a href="/notify/paid/{{ uomepost.id }}">Paid</a></td>								            	
+		            {% endif %}
 		        </tr>
         		{% endfor %}
         	</table>

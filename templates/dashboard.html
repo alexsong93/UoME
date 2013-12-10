@@ -1,11 +1,24 @@
 {% extends "base.html" %}
 
+{% block title %}
+	<title>UoMe: Dashboard</title>
+{% endblock %}
+
 {% block maincontent %}
 
-	<h1>Hi {{first_name}}!</h1>
-	<h3>Recent activity</h3>
+	<h1>Hi {{user.first_name}}!</h1>
+	<h2>Recent activity</h2>
 	<p> blah <br/> blha <br/> bhla</p>
-	<h3>Notifications</h3>
-	<p> blah <br/> blha <br/> bhla</p>
+	<h2>Notifications</h2>
+	{% for n in user.notifications.all %}
+		{% if n.alertNotif %}
+			<h3 id="alert">{{ n.title }}</h3>
+		{% else %}
+			<h3>{{ n.title }}</h3>
+		{% endif %}
+		<p>{{ n.message }}</p>
+		{% empty %}
+        	<p>You have no notifications</p>
+	{% endfor %}
 	
 {% endblock %}

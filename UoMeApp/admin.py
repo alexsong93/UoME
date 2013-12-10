@@ -15,7 +15,11 @@ class UoMePostAdmin(admin.ModelAdmin):
         
 class UserProfileAdmin(admin.ModelAdmin):
     prepopulated_fields = {}
+    
+class NotificationAdmin(admin.ModelAdmin):
+    prepopulated_fields = {}
 
 admin.site.register(models.Group, GroupAdmin)       
 admin.site.register(models.UoMePost, UoMePostAdmin)
 admin.site.register(models.UserProfile, UserProfileAdmin)
+admin.site.register(models.Notification, NotificationAdmin)

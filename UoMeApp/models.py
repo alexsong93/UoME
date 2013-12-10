@@ -50,6 +50,8 @@ class UoMePost(models.Model):
     item_name = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     comments = models.TextField()
+    paid = models.BooleanField(default=False)
+    confirmed = models.BooleanField(default=False)
     pub_date = models.DateTimeField()
     slug = models.SlugField(max_length=40, unique=True)
      
@@ -62,13 +64,29 @@ class UoMePost(models.Model):
     def get_absolute_url(self):
         return "/%s/%s/" % (self.event, self.slug)
     
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):    
         if not self.id:
             self.slug = slugify(self.item_name)
         
         self.pub_date = datetime.now()
         super(UoMePost, self).save(*args, **kwargs)
     
+class Notification(models.Model):
+    title = models.CharField(max_length=256)
+    message = models.TextField()
+    pub_date = models.DateTimeField()
+    alertNotif = models.BooleanField(default=False)
+    user=models.ForeignKey(User, related_name="notifications")
+    
+    def __unicode__(self):
+        return "%s, %s" % (self.user, self.title)
+    
+    def save(self, *args, **kwargs):    
+        self.pub_date = datetime.now()
+        super(Notification, self).save(*args, **kwargs)
+    
+    class Meta:
+        ordering = ["-pub_date"]
     
 class SharedUoMePost(models.Model):
     group = models.ForeignKey(Group, related_name='shared_uomeposts');

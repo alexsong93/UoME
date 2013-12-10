@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     url(r'^accounts/register/?$', 'UoMe.views.register_user'),
     
     # Dashboard
-    url(r'^dashboard/?$', 'UoMeApp.views.createDashboard'),
+    url(r'^dashboard/?$', 'UoMeApp.views.loadDashboard'),
            
     # Profile
     url(r'^profile/?$', 'UoMeApp.views.profile'),
@@ -49,8 +49,12 @@ urlpatterns = patterns('',
     # Add a UoMePost
     url(r'^create/(?P<group_id>\d)/?$', 'UoMeApp.views.create'),
     # Edit a UoMePost
-    url(r'^edit/(?P<group_id>\d)/(?P<uomepost_id>\d)?$', 'UoMeApp.views.editUoMePost'),
-
+    url(r'^edit/(?P<group_id>\d)/(?P<uomepost_id>\d)/?$', 'UoMeApp.views.editUoMePost'),
+    # notifications
+    url(r'^notify/paid/(?P<uomepost_id>\d)/?$', 'UoMeApp.views.notifyPaid'),
+    url(r'^notify/confirm/(?P<uomepost_id>\d)/?$', 'UoMeApp.views.notifyConfirm'),
+    url(r'^notify/reject/(?P<uomepost_id>\d)/?$', 'UoMeApp.views.notifyReject'),
+    
     # flatpages
     url(r'', include('django.contrib.flatpages.urls')),
 #     url(r'^events/(?P<categorySlug>\w+)/?$', 'UoMeApp.views.getEvent'),
