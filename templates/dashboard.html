@@ -7,8 +7,6 @@
 {% block maincontent %}
 
 	<h1>Hi {{user.first_name}}!</h1>
-	<h2>Recent activity</h2>
-	<p> blah <br/> blha <br/> bhla</p>
 	<h2>Notifications</h2>
 	{% for n in user.notifications.all %}
 		{% if n.alertNotif %}

@@ -17,13 +17,12 @@ urlpatterns = patterns('',
     url(r'^$','UoMeApp.views.homepage'),
     
     #facebook
-    url(r'^$', include('social_auth.urls')),
+    #url(r'^$', include('social_auth.urls')),
     
     # user auth urls
     url(r'^accounts/login/?$', 'UoMe.views.login'),
     url(r'^accounts/auth/?$', 'UoMe.views.auth_view'),
     url(r'^accounts/logout/?$', 'UoMe.views.logout'),
-    url(r'^accounts/invalid/?$', 'UoMe.views.invalid_login'),
     url(r'^accounts/register/?$', 'UoMe.views.register_user'),
     
     # Dashboard
@@ -35,12 +34,6 @@ urlpatterns = patterns('',
     # All groups
     url(r'^groups/?$', myGroupsView.as_view(
         model=Group,
-    )),
-
-    
-    # All posts
-    url(r'^UoMePosts/?$', ListView.as_view(
-        model=UoMePost,
     )),
                        
     # Create a group

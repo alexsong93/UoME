@@ -17,7 +17,7 @@
         {% endfor %}
         </li>
         <li><strong>Description</strong>: {{ group.description }}</li>
-        <li><strong>Individual UoMe's</strong>:
+        <li><strong>UoMe's</strong>:
         	<table border="1">
         		<tr>
         			<td><strong>Date</strong>:</td>
@@ -47,7 +47,11 @@
 		            		<a href="/notify/reject/{{ uomepost.id }}">reject</a></td>
 		            	{% endif %}
 					{% else %}
-						<td><a href="/notify/paid/{{ uomepost.id }}">Paid</a></td>								            	
+						{% if request.user == uomepost.receiver_name %}
+							<td>Awaiting Payment</td>
+						{% else %}
+							<td><a href="/notify/paid/{{ uomepost.id }}">Paid</a></td>
+						{% endif %}								            	
 		            {% endif %}
 		        </tr>
         		{% endfor %}
@@ -57,12 +61,9 @@
         <form action="/addUoMe/{{ group.id }}" method="GET">
         	<button>Add a UoMe</button>
         </form>
-        <li>
-        	<strong>Shared UoMe's</strong>:
-        </li>
         
         {% empty %}
-        	<p>You are not part of a group yet. Join an existing group or create your own!</p>
+        	<p>You are not part of a group yet. Create your own by navigating to the Create a group tab!</p>
         
     {% endfor %}
 	
